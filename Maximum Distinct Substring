@@ -1,0 +1,65 @@
+ 
+import java.util.Arrays; 
+import java.util.Scanner;
+public class SUBSTRING { 
+
+	static final int maxi = 256; 
+
+	static int SubString(String str) 
+	{ 
+		int n = str.length(); 
+		int distinct = 0; 
+		
+		boolean[] visited = new boolean[maxi]; 
+		Arrays.fill(visited, false); 
+		for (int i=0; i<n; i++) 
+		{ 
+			if (visited[str.charAt(i)] == false) 
+			{ 
+				visited[str.charAt(i)] = true; 
+				distinct++; 
+			} 
+		} 
+		
+		int start = 0, start_index = -1; 
+		int min_len = Integer.MAX_VALUE; 
+	
+		int count = 0; 
+		int[] current = new int[maxi]; 
+		for (int j=0; j<n; j++) 
+		{ 	
+			current[str.charAt(j)]++; 
+	
+			
+			if (current[str.charAt(j)] == 1 ) 
+				count++; 
+	
+			if (count == distinct) 
+			{ 
+				
+				while (current[str.charAt(start)] > 1) 
+				{ 
+					if (current[str.charAt(start)] > 1) 
+						current[str.charAt(start)]--; 
+					start++; 
+				} 
+						
+				int len_window = j - start + 1; 
+				if (min_len > len_window) 
+				{ 
+					min_len = len_window; 
+					start_index = start; 
+				} 
+			} 
+		} 
+		
+		return str.substring(start_index, start_index+min_len).length(); 
+	} 
+	public static void main(String args[]) 
+	{ 
+    	Scanner sc=new Scanner(System.in);
+		String str = in. nextLine();
+		System.out.println(SubString(str)); 
+	} 
+} 
+
